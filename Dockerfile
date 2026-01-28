@@ -14,6 +14,7 @@ EXPOSE 5000
 
 CMD ["gunicorn", "--worker-class", "gevent", \
     "--workers", "2", \
-    "--wroker-connections", "1000", \
+    "--worker-connections", "1000", \
+    "--bind", "0.0.0.0:5000", \
     "--timeout", "300", \
     "app:app"]
