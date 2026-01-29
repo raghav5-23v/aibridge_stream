@@ -12,9 +12,9 @@ COPY app.py .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--worker-class", "gevent", \
+CMD ["gunicorn", "app:app", \
     "--workers", "2", \
-    "--worker-connections", "1000", \
+    "--worker-class", "uvicorn.workers.UvicornWorker", \
     "--bind", "0.0.0.0:5000", \
     "--timeout", "300", \
-    "app:app"]
+    "--keep-alive", "60"]
