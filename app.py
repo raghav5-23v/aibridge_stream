@@ -12,10 +12,15 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-REDIS_HOST = os.getenv("CACHE_REDIS_HOST", "localhost")
-REDIS_PORT = int(os.getenv("CACHE_REDIS_PORT", 6379))
-REDIS_DB = int(os.getenv("CACHE_REDIS_DB", 0))
-REDIS_PASSWORD = os.getenv("CACHE_REDIS_PASSWORD", "redis")
+# REDIS_HOST = os.getenv("CACHE_REDIS_HOST", "localhost")
+# REDIS_PORT = int(os.getenv("CACHE_REDIS_PORT", 6379))
+# REDIS_DB = int(os.getenv("CACHE_REDIS_DB", 0))
+# REDIS_PASSWORD = os.getenv("CACHE_REDIS_PASSWORD", "rdscal@axyen@951!159")
+
+REDIS_HOST = "18.214.160.94"
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASSWORD = "redis"
 
 redis_client = redis.StrictRedis(
     host=REDIS_HOST,
@@ -79,8 +84,7 @@ def event_stream(session_id):
 @app.route("/health", methods=["GET"])
 def health():
     if redis_client.ping():
-        return "OK", 200
-
+        return {"status": "ok"}, 200
     return "Unhealthy", 500
 
 
